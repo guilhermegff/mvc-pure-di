@@ -11,6 +11,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.mvcpuredi.R
 import com.example.mvcpuredi.networking.UsersApi
 import kotlinx.coroutines.*
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -35,7 +37,13 @@ class UserDetailActivity : AppCompatActivity() {
         swipeRefreshLayout.isEnabled = false
 
         val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:8000/")
-            .addConverterFactory(GsonConverterFactory.create()).build()
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(OkHttpClient().newBuilder().addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    this.level = HttpLoggingInterceptor.Level.BODY
+                }
+            ).build())
+            .build()
         usersApi = retrofit.create(UsersApi::class.java)
 
         userId = intent.extras!!.getString(EXTRA_USER_ID)!!
@@ -57,11 +65,11 @@ class UserDetailActivity : AppCompatActivity() {
             try {
                 val response = usersApi.getUser(userId.toInt())
                 if (response.isSuccessful && response.body() != null) {
-                    val userName = response.body()!!.name
+                    val userName = response.body()!!.id
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        txtUserName.text = Html.fromHtml(userName, Html.FROM_HTML_MODE_LEGACY)
+                        txtUserName.text = Html.fromHtml(userName.toString(), Html.FROM_HTML_MODE_LEGACY)
                     } else {
-                        @Suppress("DEPRECATION") txtUserName.text = Html.fromHtml(userName)
+                        @Suppress("DEPRECATION") txtUserName.text = Html.fromHtml(userName.toString())
                     }
                 } else {
                     onFetchFailed()
