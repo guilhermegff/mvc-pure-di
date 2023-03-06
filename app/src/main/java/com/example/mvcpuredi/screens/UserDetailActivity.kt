@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mvcpuredi.networking.UsersApi
+import com.example.mvcpuredi.usecases.FetchUserDetailUseCase
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,21 +16,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 class UserDetailActivity : AppCompatActivity(), UserDetailViewMvc.Listener {
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private lateinit var usersApi: UsersApi
     private lateinit var userId: String
     private lateinit var viewMvc: UserDetailViewMvc
+    private lateinit var fetchUserDetailUseCase: FetchUserDetailUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewMvc = UserDetailViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
-
-        val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:8000/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(OkHttpClient().newBuilder().addInterceptor(HttpLoggingInterceptor().apply {
-                this.level = HttpLoggingInterceptor.Level.BODY
-            }).build()).build()
-        usersApi = retrofit.create(UsersApi::class.java)
+        fetchUserDetailUseCase = FetchUserDetailUseCase()
 
         userId = intent.extras!!.getString(EXTRA_USER_ID)!!
     }
@@ -50,16 +45,12 @@ class UserDetailActivity : AppCompatActivity(), UserDetailViewMvc.Listener {
         coroutineScope.launch {
             viewMvc.showProgressIndication()
             try {
-                val response = usersApi.getUser(userId.toInt())
-                if (response.isSuccessful && response.body() != null) {
-                    val userName = response.body()!!.id
-                    viewMvc.bindUser(userName.toString())
-                } else {
-                    onFetchFailed()
-                }
-            } catch (t: Throwable) {
-                if (t !is CancellationException) {
-                    onFetchFailed()
+                val result = fetchUserDetailUseCase.fetchUsers(userId.toInt())
+                when(result) {
+                    is FetchUserDetailUseCase.Result.Success -> {
+                        viewMvc.bindUser(result.userId.toString())
+                    }
+                    is FetchUserDetailUseCase.Result.Failure -> onFetchFailed()
                 }
             } finally {
                 viewMvc.hideProgressIndication()
