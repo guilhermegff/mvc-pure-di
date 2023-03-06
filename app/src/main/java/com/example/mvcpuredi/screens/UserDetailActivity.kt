@@ -15,6 +15,7 @@ class UserDetailActivity : AppCompatActivity(), UserDetailViewMvc.Listener {
     private lateinit var viewMvc: UserDetailViewMvc
     private lateinit var fetchUserDetailUseCase: FetchUserDetailUseCase
     private lateinit var dialogsNavigator: DialogsNavigator
+    private lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +24,7 @@ class UserDetailActivity : AppCompatActivity(), UserDetailViewMvc.Listener {
         fetchUserDetailUseCase = FetchUserDetailUseCase()
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        screensNavigator = ScreensNavigator(this)
 
         userId = intent.extras!!.getString(EXTRA_USER_ID)!!
     }
@@ -70,6 +72,6 @@ class UserDetailActivity : AppCompatActivity(), UserDetailViewMvc.Listener {
     }
 
     override fun onBackClicked() {
-        onBackPressed()
+        screensNavigator.navigateBack()
     }
 }

@@ -14,6 +14,7 @@ class UserListActivity : AppCompatActivity(), UserListViewMvc.Listener {
     private lateinit var viewMvc: UserListViewMvc
     private lateinit var fetchUsersUseCase: FetchUsersUseCase
     private lateinit var dialogsNavigator: DialogsNavigator
+    private lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +22,7 @@ class UserListActivity : AppCompatActivity(), UserListViewMvc.Listener {
         setContentView(viewMvc.rootView)
         fetchUsersUseCase = FetchUsersUseCase()
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        screensNavigator = ScreensNavigator(this)
     }
 
     override fun onStart() {
@@ -64,6 +66,6 @@ class UserListActivity : AppCompatActivity(), UserListViewMvc.Listener {
     }
 
     override fun onUserClicked(clickedUser: User) {
-        UserDetailActivity.start(this, clickedUser.id.toString())
+        screensNavigator.toUserDetail(clickedUser.id.toString())
     }
 }
