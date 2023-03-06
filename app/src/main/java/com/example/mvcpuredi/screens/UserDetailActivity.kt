@@ -23,7 +23,7 @@ class UserDetailActivity : BaseActivity(), UserDetailViewMvc.Listener {
         fetchUserDetailUseCase = compositionRoot.fetchUserDetailUseCase
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
-        screensNavigator = ScreensNavigator(this)
+        screensNavigator = compositionRoot.screensNavigator
 
         userId = intent.extras!!.getString(EXTRA_USER_ID)!!
     }

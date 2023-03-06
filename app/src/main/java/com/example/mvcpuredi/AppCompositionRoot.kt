@@ -2,8 +2,6 @@ package com.example.mvcpuredi
 
 import androidx.annotation.UiThread
 import com.example.mvcpuredi.networking.UsersApi
-import com.example.mvcpuredi.usecases.FetchUserDetailUseCase
-import com.example.mvcpuredi.usecases.FetchUsersUseCase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -19,11 +17,7 @@ class AppCompositionRoot {
             }).build()).build()
     }
 
-    private val usersApi: UsersApi by lazy {
+    val usersApi: UsersApi by lazy {
         retrofit.create(UsersApi::class.java)
     }
-
-    val fetchUsersUseCase get() = FetchUsersUseCase(usersApi)
-
-    val fetchUserDetailUseCase get() = FetchUserDetailUseCase(usersApi)
 }
