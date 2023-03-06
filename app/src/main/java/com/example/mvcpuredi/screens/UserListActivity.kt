@@ -2,13 +2,11 @@ package com.example.mvcpuredi.screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.appcompat.app.AppCompatActivity
-import com.example.mvcpuredi.MyApplication
 import com.example.mvcpuredi.User
 import com.example.mvcpuredi.usecases.FetchUsersUseCase
 import kotlinx.coroutines.*
 
-class UserListActivity : AppCompatActivity(), UserListViewMvc.Listener {
+class UserListActivity : BaseActivity(), UserListViewMvc.Listener {
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
     private var isDataLoaded = false
@@ -21,7 +19,7 @@ class UserListActivity : AppCompatActivity(), UserListViewMvc.Listener {
         super.onCreate(savedInstanceState)
         viewMvc = UserListViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
-        fetchUsersUseCase = (application as MyApplication).fetchUsersUseCase
+        fetchUsersUseCase = compositionRoot.fetchUsersUseCase
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
     }
