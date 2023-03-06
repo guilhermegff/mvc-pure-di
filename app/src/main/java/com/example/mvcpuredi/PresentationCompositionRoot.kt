@@ -9,6 +9,7 @@ class PresentationCompositionRoot(private val activityCompositionRoot: ActivityC
     private val layoutInflater get() = activityCompositionRoot.layoutInflater
     private val fragmentManager get() = activityCompositionRoot.fragmentManager
     private val usersApi get() = activityCompositionRoot.usersApi
+    private val activity get() = activityCompositionRoot.activity
     val screensNavigator get() = activityCompositionRoot.screensNavigator
     val viewMvcFactory get() = ViewMvcFactory(layoutInflater)
     val dialogsNavigator get() = DialogsNavigator(fragmentManager)
