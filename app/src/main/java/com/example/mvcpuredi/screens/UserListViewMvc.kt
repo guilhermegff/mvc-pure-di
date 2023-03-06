@@ -14,7 +14,7 @@ import com.example.mvcpuredi.User
 class UserListViewMvc(
     private val layoutInflater: LayoutInflater,
     private val parent: ViewGroup?,
-): BaseViewMvc<UserListViewMvc.Listener>(
+) : BaseViewMvc<UserListViewMvc.Listener>(
     layoutInflater,
     parent,
     R.layout.user_list,
