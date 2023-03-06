@@ -1,17 +1,22 @@
 package com.example.mvcpuredi
 
-import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
+import com.example.mvcpuredi.screens.DialogsNavigator
 import com.example.mvcpuredi.screens.ScreensNavigator
 import com.example.mvcpuredi.usecases.FetchUserDetailUseCase
 import com.example.mvcpuredi.usecases.FetchUsersUseCase
 
 class ActivityCompositionRoot(
-    private val activity: Activity,
+    private val activity: AppCompatActivity,
     private val appCompositionRoot: AppCompositionRoot,
 ) {
     val screensNavigator by lazy {
         ScreensNavigator(activity)
     }
+
+    private val fragmentManager get() = activity.supportFragmentManager
+
+    val dialogsNavigator get() = DialogsNavigator(fragmentManager)
 
     private val usersApi get() = appCompositionRoot.usersApi
 

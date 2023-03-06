@@ -20,7 +20,7 @@ class UserListActivity : BaseActivity(), UserListViewMvc.Listener {
         viewMvc = UserListViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
         fetchUsersUseCase = compositionRoot.fetchUsersUseCase
-        dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        dialogsNavigator = compositionRoot.dialogsNavigator
         screensNavigator = compositionRoot.screensNavigator
     }
 
