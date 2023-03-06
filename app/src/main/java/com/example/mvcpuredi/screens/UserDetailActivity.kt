@@ -22,7 +22,7 @@ class UserDetailActivity : AppCompatActivity(), UserDetailViewMvc.Listener {
         super.onCreate(savedInstanceState)
         viewMvc = UserDetailViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
-        fetchUserDetailUseCase = FetchUserDetailUseCase((application as MyApplication).retrofit)
+        fetchUserDetailUseCase = FetchUserDetailUseCase((application as MyApplication).usersApi)
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
