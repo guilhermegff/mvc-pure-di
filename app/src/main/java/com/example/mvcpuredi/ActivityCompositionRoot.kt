@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mvcpuredi.screens.DialogsNavigator
 import com.example.mvcpuredi.screens.ScreensNavigator
+import com.example.mvcpuredi.screens.ViewMvcFactory
 import com.example.mvcpuredi.usecases.FetchUserDetailUseCase
 import com.example.mvcpuredi.usecases.FetchUsersUseCase
 
@@ -16,6 +17,8 @@ class ActivityCompositionRoot(
     }
 
     private val layoutInflater get() = LayoutInflater.from(activity)
+
+    val viewMvcFactory get() = ViewMvcFactory(layoutInflater)
 
     private val fragmentManager get() = activity.supportFragmentManager
 
