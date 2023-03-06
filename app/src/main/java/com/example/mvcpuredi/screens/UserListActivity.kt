@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.mvcpuredi.User
 import com.example.mvcpuredi.networking.UserResponse
 import com.example.mvcpuredi.networking.UsersApi
+import com.example.mvcpuredi.usecases.FetchUsersUseCase
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,23 +16,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 class UserListActivity : AppCompatActivity(), UserListViewMvc.Listener {
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private lateinit var usersApi: UsersApi
-
     private var isDataLoaded = false
 
     private lateinit var viewMvc: UserListViewMvc
+
+    private lateinit var fetchUsersUseCase: FetchUsersUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewMvc = UserListViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
-
-        val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:8000/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(OkHttpClient().newBuilder().addInterceptor(HttpLoggingInterceptor().apply {
-                this.level = HttpLoggingInterceptor.Level.BODY
-            }).build()).build()
-        usersApi = retrofit.create(UsersApi::class.java)
+        fetchUsersUseCase = FetchUsersUseCase()
     }
 
     override fun onStart() {
@@ -56,18 +51,13 @@ class UserListActivity : AppCompatActivity(), UserListViewMvc.Listener {
         coroutineScope.launch {
             viewMvc.showProgressIndication()
             try {
-                val response = usersApi.getUsers()
-                if (response.isSuccessful && response.body() != null) {
-                    viewMvc.bindUsers(response.body()!!.map {
-                        it.toUser()
-                    })
-                    isDataLoaded = true
-                } else {
-                    onFetchFailed()
-                }
-            } catch (t: Throwable) {
-                if (t !is CancellationException) {
-                    onFetchFailed()
+                val result = fetchUsersUseCase.fetchUsers()
+                when(result) {
+                    is FetchUsersUseCase.Result.Success -> {
+                        viewMvc.bindUsers(result.users)
+                        isDataLoaded = true
+                    }
+                    is FetchUsersUseCase.Result.Failure -> onFetchFailed()
                 }
             } finally {
                 viewMvc.hideProgressIndication()
@@ -83,8 +73,4 @@ class UserListActivity : AppCompatActivity(), UserListViewMvc.Listener {
     override fun onUserClicked(clickedUser: User) {
         UserDetailActivity.start(this, clickedUser.id.toString())
     }
-
-    private fun UserResponse.toUser() = User(
-        id, name, status
-    )
 }
