@@ -5,13 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import com.example.mvcpuredi.networking.UsersApi
 import com.example.mvcpuredi.usecases.FetchUserDetailUseCase
 import kotlinx.coroutines.*
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class UserDetailActivity : AppCompatActivity(), UserDetailViewMvc.Listener {
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -19,12 +14,15 @@ class UserDetailActivity : AppCompatActivity(), UserDetailViewMvc.Listener {
     private lateinit var userId: String
     private lateinit var viewMvc: UserDetailViewMvc
     private lateinit var fetchUserDetailUseCase: FetchUserDetailUseCase
+    private lateinit var dialogsNavigator: DialogsNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewMvc = UserDetailViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
         fetchUserDetailUseCase = FetchUserDetailUseCase()
+
+        dialogsNavigator = DialogsNavigator(supportFragmentManager)
 
         userId = intent.extras!!.getString(EXTRA_USER_ID)!!
     }
@@ -46,7 +44,7 @@ class UserDetailActivity : AppCompatActivity(), UserDetailViewMvc.Listener {
             viewMvc.showProgressIndication()
             try {
                 val result = fetchUserDetailUseCase.fetchUsers(userId.toInt())
-                when(result) {
+                when (result) {
                     is FetchUserDetailUseCase.Result.Success -> {
                         viewMvc.bindUser(result.userId.toString())
                     }
@@ -59,8 +57,7 @@ class UserDetailActivity : AppCompatActivity(), UserDetailViewMvc.Listener {
     }
 
     private fun onFetchFailed() {
-        supportFragmentManager.beginTransaction().add(ServerErrorDialogFragment.newInstance(), null)
-            .commitAllowingStateLoss()
+        dialogsNavigator.showServerErrorDialog()
     }
 
     companion object {
