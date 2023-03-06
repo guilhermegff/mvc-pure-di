@@ -3,6 +3,7 @@ package com.example.mvcpuredi.screens
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.example.mvcpuredi.Service
 import com.example.mvcpuredi.usecases.FetchUserDetailUseCase
 import kotlinx.coroutines.*
 
@@ -12,10 +13,17 @@ class UserDetailActivity : BaseActivity(), UserDetailViewMvc.Listener {
     private lateinit var userId: String
     private lateinit var viewMvc: UserDetailViewMvc
 
-    lateinit var viewMvcFactory: ViewMvcFactory
-    lateinit var fetchUserDetailUseCase: FetchUserDetailUseCase
-    lateinit var dialogsNavigator: DialogsNavigator
-    lateinit var screensNavigator: ScreensNavigator
+    @field:Service
+    private lateinit var viewMvcFactory: ViewMvcFactory
+
+    @field:Service
+    private lateinit var fetchUserDetailUseCase: FetchUserDetailUseCase
+
+    @field:Service
+    private lateinit var dialogsNavigator: DialogsNavigator
+
+    @field:Service
+    private lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)
