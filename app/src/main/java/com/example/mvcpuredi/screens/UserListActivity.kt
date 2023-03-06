@@ -21,7 +21,7 @@ class UserListActivity : BaseActivity(), UserListViewMvc.Listener {
         setContentView(viewMvc.rootView)
         fetchUsersUseCase = compositionRoot.fetchUsersUseCase
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
-        screensNavigator = ScreensNavigator(this)
+        screensNavigator = compositionRoot.screensNavigator
     }
 
     override fun onStart() {
