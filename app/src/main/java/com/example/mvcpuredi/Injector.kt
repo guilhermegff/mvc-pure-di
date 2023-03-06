@@ -1,20 +1,61 @@
 package com.example.mvcpuredi
 
-import com.example.mvcpuredi.screens.UserDetailActivity
-import com.example.mvcpuredi.screens.UserListFragment
+import com.example.mvcpuredi.screens.*
+import com.example.mvcpuredi.usecases.FetchUserDetailUseCase
+import com.example.mvcpuredi.usecases.FetchUsersUseCase
+import java.lang.reflect.Field
 
 class Injector(private val compositionRoot: PresentationCompositionRoot) {
-    fun inject(fragment: UserListFragment) {
-        fragment.dialogsNavigator = compositionRoot.dialogsNavigator
-        fragment.screensNavigator = compositionRoot.screensNavigator
-        fragment.fetchUsersUseCase = compositionRoot.fetchUsersUseCase
-        fragment.viewMvcFactory = compositionRoot.viewMvcFactory
+    fun inject(client: Any) {
+        for (field in getAllFields(client)) {
+            if (isAnnotatedForInjection(field)) {
+                injectField(client, field)
+            }
+        }
     }
 
-    fun inject(activity: UserDetailActivity) {
-        activity.dialogsNavigator = compositionRoot.dialogsNavigator
-        activity.screensNavigator = compositionRoot.screensNavigator
-        activity.fetchUserDetailUseCase = compositionRoot.fetchUserDetailUseCase
-        activity.viewMvcFactory = compositionRoot.viewMvcFactory
+    private fun getAllFields(client: Any): Array<out Field> {
+        val clientCLass = client::class.java
+        return clientCLass.declaredFields
+    }
+
+    private fun isAnnotatedForInjection(field: Field): Boolean {
+        val fieldAnnotation = field.annotations
+        for (annotation in fieldAnnotation) {
+            if (annotation is Service) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun injectField(client: Any, field: Field) {
+        val isAccessibleInitially = field.isAccessible
+        field.isAccessible = true
+        field.set(client, getServiceForClass(field.type))
+        field.isAccessible = isAccessibleInitially
+    }
+
+    private fun getServiceForClass(type: Class<*>): Any {
+        when (type) {
+            DialogsNavigator::class.java -> {
+                return compositionRoot.dialogsNavigator
+            }
+            ScreensNavigator::class.java -> {
+                return compositionRoot.screensNavigator
+            }
+            FetchUsersUseCase::class.java -> {
+                return compositionRoot.fetchUsersUseCase
+            }
+            FetchUserDetailUseCase::class.java -> {
+                return compositionRoot.fetchUserDetailUseCase
+            }
+            ViewMvcFactory::class.java -> {
+                return compositionRoot.viewMvcFactory
+            }
+            else -> {
+                throw Exception("unsupported service type: $type")
+            }
+        }
     }
 }
