@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import com.example.mvcpuredi.MyApplication
 import com.example.mvcpuredi.usecases.FetchUserDetailUseCase
 import kotlinx.coroutines.*
 
@@ -21,7 +22,7 @@ class UserDetailActivity : AppCompatActivity(), UserDetailViewMvc.Listener {
         super.onCreate(savedInstanceState)
         viewMvc = UserDetailViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
-        fetchUserDetailUseCase = FetchUserDetailUseCase()
+        fetchUserDetailUseCase = FetchUserDetailUseCase((application as MyApplication).retrofit)
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
