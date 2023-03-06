@@ -1,5 +1,6 @@
 package com.example.mvcpuredi
 
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mvcpuredi.screens.DialogsNavigator
 import com.example.mvcpuredi.screens.ScreensNavigator
@@ -13,6 +14,8 @@ class ActivityCompositionRoot(
     val screensNavigator by lazy {
         ScreensNavigator(activity)
     }
+
+    private val layoutInflater get() = LayoutInflater.from(activity)
 
     private val fragmentManager get() = activity.supportFragmentManager
 

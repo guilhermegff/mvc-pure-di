@@ -1,70 +1,16 @@
 package com.example.mvcpuredi.screens
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import com.example.mvcpuredi.User
-import com.example.mvcpuredi.usecases.FetchUsersUseCase
-import kotlinx.coroutines.*
+import com.example.mvcpuredi.R
 
-class UserListActivity : BaseActivity(), UserListViewMvc.Listener {
-    private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-
-    private var isDataLoaded = false
-    private lateinit var viewMvc: UserListViewMvc
-    private lateinit var fetchUsersUseCase: FetchUsersUseCase
-    private lateinit var dialogsNavigator: DialogsNavigator
-    private lateinit var screensNavigator: ScreensNavigator
-
+class UserListActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewMvc = UserListViewMvc(LayoutInflater.from(this), null)
-        setContentView(viewMvc.rootView)
-        fetchUsersUseCase = compositionRoot.fetchUsersUseCase
-        dialogsNavigator = compositionRoot.dialogsNavigator
-        screensNavigator = compositionRoot.screensNavigator
-    }
+        setContentView(R.layout.layout_frame)
 
-    override fun onStart() {
-        super.onStart()
-        viewMvc.registerListener(this)
-        if (!isDataLoaded) {
-            fetchUsers()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().add(R.id.frame_content, UserListFragment())
+                .commit()
         }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        coroutineScope.coroutineContext.cancelChildren()
-        viewMvc.unregisterListener(this)
-    }
-
-    override fun onRefreshClicked() {
-        fetchUsers()
-    }
-
-    private fun fetchUsers() {
-        coroutineScope.launch {
-            viewMvc.showProgressIndication()
-            try {
-                val result = fetchUsersUseCase.fetchUsers()
-                when (result) {
-                    is FetchUsersUseCase.Result.Success -> {
-                        viewMvc.bindUsers(result.users)
-                        isDataLoaded = true
-                    }
-                    is FetchUsersUseCase.Result.Failure -> onFetchFailed()
-                }
-            } finally {
-                viewMvc.hideProgressIndication()
-            }
-        }
-    }
-
-    private fun onFetchFailed() {
-        dialogsNavigator.showServerErrorDialog()
-    }
-
-    override fun onUserClicked(clickedUser: User) {
-        screensNavigator.toUserDetail(clickedUser.id.toString())
     }
 }
