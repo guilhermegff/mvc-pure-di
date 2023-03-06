@@ -4,29 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mvcpuredi.User
-import com.example.mvcpuredi.networking.UserResponse
-import com.example.mvcpuredi.networking.UsersApi
 import com.example.mvcpuredi.usecases.FetchUsersUseCase
 import kotlinx.coroutines.*
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class UserListActivity : AppCompatActivity(), UserListViewMvc.Listener {
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
     private var isDataLoaded = false
-
     private lateinit var viewMvc: UserListViewMvc
-
     private lateinit var fetchUsersUseCase: FetchUsersUseCase
+    private lateinit var dialogsNavigator: DialogsNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewMvc = UserListViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
         fetchUsersUseCase = FetchUsersUseCase()
+        dialogsNavigator = DialogsNavigator(supportFragmentManager)
     }
 
     override fun onStart() {
@@ -52,7 +46,7 @@ class UserListActivity : AppCompatActivity(), UserListViewMvc.Listener {
             viewMvc.showProgressIndication()
             try {
                 val result = fetchUsersUseCase.fetchUsers()
-                when(result) {
+                when (result) {
                     is FetchUsersUseCase.Result.Success -> {
                         viewMvc.bindUsers(result.users)
                         isDataLoaded = true
@@ -66,8 +60,7 @@ class UserListActivity : AppCompatActivity(), UserListViewMvc.Listener {
     }
 
     private fun onFetchFailed() {
-        supportFragmentManager.beginTransaction().add(ServerErrorDialogFragment.newInstance(), null)
-            .commitAllowingStateLoss()
+        dialogsNavigator.showServerErrorDialog()
     }
 
     override fun onUserClicked(clickedUser: User) {
