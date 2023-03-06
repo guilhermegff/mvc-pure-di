@@ -11,18 +11,17 @@ class UserDetailActivity : BaseActivity(), UserDetailViewMvc.Listener {
 
     private lateinit var userId: String
     private lateinit var viewMvc: UserDetailViewMvc
-    private lateinit var fetchUserDetailUseCase: FetchUserDetailUseCase
-    private lateinit var dialogsNavigator: DialogsNavigator
-    private lateinit var screensNavigator: ScreensNavigator
+
+    lateinit var viewMvcFactory: ViewMvcFactory
+    lateinit var fetchUserDetailUseCase: FetchUserDetailUseCase
+    lateinit var dialogsNavigator: DialogsNavigator
+    lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
         super.onCreate(savedInstanceState)
-        viewMvc = compositionRoot.viewMvcFactory.newUserDetailViewMvc(null)
+        viewMvc = viewMvcFactory.newUserDetailViewMvc(null)
         setContentView(viewMvc.rootView)
-        fetchUserDetailUseCase = compositionRoot.fetchUserDetailUseCase
-
-        dialogsNavigator = compositionRoot.dialogsNavigator
-        screensNavigator = compositionRoot.screensNavigator
 
         userId = intent.extras!!.getString(EXTRA_USER_ID)!!
     }

@@ -9,7 +9,7 @@ import kotlinx.coroutines.withContext
 
 class FetchUsersUseCase(private val usersApi: UsersApi) {
     sealed class Result {
-        class Success(val users: List<User>) : Result()
+        data class Success(val users: List<User>) : Result()
         object Failure : Result()
     }
 

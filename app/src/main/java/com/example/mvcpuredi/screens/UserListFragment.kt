@@ -13,22 +13,21 @@ class UserListFragment : BaseFragment(), UserListViewMvc.Listener {
 
     private var isDataLoaded = false
     private lateinit var viewMvc: UserListViewMvc
-    private lateinit var fetchUsersUseCase: FetchUsersUseCase
-    private lateinit var dialogsNavigator: DialogsNavigator
-    private lateinit var screensNavigator: ScreensNavigator
+
+    lateinit var viewMvcFactory: ViewMvcFactory
+    lateinit var fetchUsersUseCase: FetchUsersUseCase
+    lateinit var dialogsNavigator: DialogsNavigator
+    lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
         super.onCreate(savedInstanceState)
-
-        fetchUsersUseCase = compositionRoot.fetchUsersUseCase
-        dialogsNavigator = compositionRoot.dialogsNavigator
-        screensNavigator = compositionRoot.screensNavigator
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        viewMvc = compositionRoot.viewMvcFactory.newUserListViewMvc(container)
+        viewMvc = viewMvcFactory.newUserListViewMvc(container)
         return viewMvc.rootView
     }
 
