@@ -21,7 +21,7 @@ class UserListActivity : AppCompatActivity(), UserListViewMvc.Listener {
         super.onCreate(savedInstanceState)
         viewMvc = UserListViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
-        fetchUsersUseCase = FetchUsersUseCase((application as MyApplication).usersApi)
+        fetchUsersUseCase = (application as MyApplication).fetchUsersUseCase
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
     }
