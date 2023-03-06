@@ -4,12 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.appcompat.app.AppCompatActivity
-import com.example.mvcpuredi.MyApplication
 import com.example.mvcpuredi.usecases.FetchUserDetailUseCase
 import kotlinx.coroutines.*
 
-class UserDetailActivity : AppCompatActivity(), UserDetailViewMvc.Listener {
+class UserDetailActivity : BaseActivity(), UserDetailViewMvc.Listener {
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
     private lateinit var userId: String
@@ -22,7 +20,7 @@ class UserDetailActivity : AppCompatActivity(), UserDetailViewMvc.Listener {
         super.onCreate(savedInstanceState)
         viewMvc = UserDetailViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
-        fetchUserDetailUseCase = (application as MyApplication).fetchUserDetailUseCase
+        fetchUserDetailUseCase = compositionRoot.fetchUserDetailUseCase
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
