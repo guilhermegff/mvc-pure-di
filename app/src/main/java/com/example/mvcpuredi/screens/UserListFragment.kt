@@ -28,7 +28,7 @@ class UserListFragment : BaseFragment(), UserListViewMvc.Listener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        viewMvc = UserListViewMvc(LayoutInflater.from(requireContext()), container)
+        viewMvc = compositionRoot.viewMvcFactory.newUserListViewMvc(container)
         return viewMvc.rootView
     }
 

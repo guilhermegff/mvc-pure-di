@@ -3,7 +3,6 @@ package com.example.mvcpuredi.screens
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import com.example.mvcpuredi.usecases.FetchUserDetailUseCase
 import kotlinx.coroutines.*
 
@@ -18,7 +17,7 @@ class UserDetailActivity : BaseActivity(), UserDetailViewMvc.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewMvc = UserDetailViewMvc(LayoutInflater.from(this), null)
+        viewMvc = compositionRoot.viewMvcFactory.newUserDetailViewMvc(null)
         setContentView(viewMvc.rootView)
         fetchUserDetailUseCase = compositionRoot.fetchUserDetailUseCase
 
