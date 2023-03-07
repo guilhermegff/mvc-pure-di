@@ -1,10 +1,10 @@
-package com.example.mvcpuredi
+package com.example.mvcpuredi.di.activity
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import com.example.mvcpuredi.networking.UsersApi
-import com.example.mvcpuredi.screens.ScreensNavigator
+import com.example.mvcpuredi.screens.common.ScreensNavigator
 import dagger.Component
 
 @Component(modules = [ActivityModule::class])

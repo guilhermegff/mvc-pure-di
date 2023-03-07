@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     >
-    <com.example.mvcpuredi.screens.MyToolbar
+    <com.example.mvcpuredi.screens.common.MyToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="12dp"

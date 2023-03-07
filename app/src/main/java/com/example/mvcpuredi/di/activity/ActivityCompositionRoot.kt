@@ -1,8 +1,9 @@
-package com.example.mvcpuredi
+package com.example.mvcpuredi.di.activity
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import com.example.mvcpuredi.screens.ScreensNavigator
+import com.example.mvcpuredi.di.app.AppModule
+import com.example.mvcpuredi.screens.common.ScreensNavigator
 
 class ActivityCompositionRoot(
     val activity: AppCompatActivity,

@@ -1,6 +1,8 @@
 package com.example.mvcpuredi
 
 import android.app.Application
+import com.example.mvcpuredi.di.app.AppModule
+import com.example.mvcpuredi.di.app.DaggerAppComponent
 
 class MyApplication : Application() {
     val appComponent by lazy {

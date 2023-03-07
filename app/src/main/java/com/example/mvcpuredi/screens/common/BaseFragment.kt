@@ -1,9 +1,9 @@
-package com.example.mvcpuredi.screens
+package com.example.mvcpuredi.screens.common
 
 import androidx.fragment.app.Fragment
-import com.example.mvcpuredi.DaggerPresentationComponent
-import com.example.mvcpuredi.Injector
-import com.example.mvcpuredi.PresentationModule
+import com.example.mvcpuredi.di.Injector
+import com.example.mvcpuredi.di.presentation.DaggerPresentationComponent
+import com.example.mvcpuredi.di.presentation.PresentationModule
 
 open class BaseFragment : Fragment() {
     private val presentationComponent by lazy {

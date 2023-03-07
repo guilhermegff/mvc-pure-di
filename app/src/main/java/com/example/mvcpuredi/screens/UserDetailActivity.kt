@@ -4,6 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.example.mvcpuredi.Service
+import com.example.mvcpuredi.screens.common.BaseActivity
+import com.example.mvcpuredi.screens.common.DialogsNavigator
+import com.example.mvcpuredi.screens.common.ScreensNavigator
+import com.example.mvcpuredi.screens.common.ViewMvcFactory
 import com.example.mvcpuredi.usecases.FetchUserDetailUseCase
 import kotlinx.coroutines.*
 

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.mvcpuredi.R
 import com.example.mvcpuredi.User
+import com.example.mvcpuredi.screens.common.BaseViewMvc
 
 class UserListViewMvc(
     private val layoutInflater: LayoutInflater,
