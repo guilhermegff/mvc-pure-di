@@ -1,8 +1,8 @@
-package com.example.mvcpuredi
+package com.example.mvcpuredi.di.presentation
 
-import com.example.mvcpuredi.screens.DialogsNavigator
-import com.example.mvcpuredi.screens.ScreensNavigator
-import com.example.mvcpuredi.screens.ViewMvcFactory
+import com.example.mvcpuredi.screens.common.DialogsNavigator
+import com.example.mvcpuredi.screens.common.ScreensNavigator
+import com.example.mvcpuredi.screens.common.ViewMvcFactory
 import com.example.mvcpuredi.usecases.FetchUserDetailUseCase
 import com.example.mvcpuredi.usecases.FetchUsersUseCase
 import dagger.Component

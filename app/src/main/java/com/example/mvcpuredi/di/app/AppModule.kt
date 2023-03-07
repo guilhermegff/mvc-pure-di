@@ -1,4 +1,4 @@
-package com.example.mvcpuredi
+package com.example.mvcpuredi.di.app
 
 import android.app.Application
 import com.example.mvcpuredi.networking.UsersApi

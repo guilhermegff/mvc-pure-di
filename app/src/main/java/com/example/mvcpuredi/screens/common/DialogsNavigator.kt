@@ -1,4 +1,4 @@
-package com.example.mvcpuredi.screens
+package com.example.mvcpuredi.screens.common
 
 import androidx.fragment.app.FragmentManager
 

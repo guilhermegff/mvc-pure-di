@@ -1,7 +1,8 @@
-package com.example.mvcpuredi
+package com.example.mvcpuredi.di.presentation
 
-import com.example.mvcpuredi.screens.DialogsNavigator
-import com.example.mvcpuredi.screens.ViewMvcFactory
+import com.example.mvcpuredi.di.activity.ActivityCompositionRoot
+import com.example.mvcpuredi.screens.common.DialogsNavigator
+import com.example.mvcpuredi.screens.common.ViewMvcFactory
 
 class PresentationCompositionRoot(private val activityCompositionRoot: ActivityCompositionRoot) {
     private val layoutInflater get() = activityCompositionRoot.layoutInflater

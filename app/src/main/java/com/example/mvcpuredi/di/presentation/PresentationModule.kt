@@ -1,10 +1,11 @@
-package com.example.mvcpuredi
+package com.example.mvcpuredi.di.presentation
 
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentManager
+import com.example.mvcpuredi.di.activity.ActivityComponent
 import com.example.mvcpuredi.networking.UsersApi
-import com.example.mvcpuredi.screens.DialogsNavigator
-import com.example.mvcpuredi.screens.ViewMvcFactory
+import com.example.mvcpuredi.screens.common.DialogsNavigator
+import com.example.mvcpuredi.screens.common.ViewMvcFactory
 import com.example.mvcpuredi.usecases.FetchUserDetailUseCase
 import com.example.mvcpuredi.usecases.FetchUsersUseCase
 import dagger.Module

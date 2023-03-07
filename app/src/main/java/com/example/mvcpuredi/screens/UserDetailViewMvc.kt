@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.mvcpuredi.R
+import com.example.mvcpuredi.screens.common.BaseViewMvc
+import com.example.mvcpuredi.screens.common.MyToolbar
 
 class UserDetailViewMvc(
     layoutInflater: LayoutInflater,

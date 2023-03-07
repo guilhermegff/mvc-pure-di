@@ -2,6 +2,7 @@ package com.example.mvcpuredi.screens
 
 import android.os.Bundle
 import com.example.mvcpuredi.R
+import com.example.mvcpuredi.screens.common.BaseActivity
 
 class UserListActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
