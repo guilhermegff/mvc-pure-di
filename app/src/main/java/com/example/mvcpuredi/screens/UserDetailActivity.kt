@@ -18,16 +18,16 @@ class UserDetailActivity : BaseActivity(), UserDetailViewMvc.Listener {
     private lateinit var viewMvc: UserDetailViewMvc
 
     @Inject
-    private lateinit var viewMvcFactory: ViewMvcFactory
+    lateinit var viewMvcFactory: ViewMvcFactory
 
     @Inject
-    private lateinit var fetchUserDetailUseCase: FetchUserDetailUseCase
+    lateinit var fetchUserDetailUseCase: FetchUserDetailUseCase
 
     @Inject
-    private lateinit var dialogsNavigator: DialogsNavigator
+    lateinit var dialogsNavigator: DialogsNavigator
 
     @Inject
-    private lateinit var screensNavigator: ScreensNavigator
+    lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)

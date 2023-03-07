@@ -20,16 +20,16 @@ class UserListFragment : BaseFragment(), UserListViewMvc.Listener {
     private lateinit var viewMvc: UserListViewMvc
 
     @Inject
-    private lateinit var viewMvcFactory: ViewMvcFactory
+    lateinit var viewMvcFactory: ViewMvcFactory
 
     @Inject
-    private lateinit var fetchUsersUseCase: FetchUsersUseCase
+    lateinit var fetchUsersUseCase: FetchUsersUseCase
 
     @Inject
-    private lateinit var dialogsNavigator: DialogsNavigator
+    lateinit var dialogsNavigator: DialogsNavigator
 
     @Inject
-    private lateinit var screensNavigator: ScreensNavigator
+    lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)
