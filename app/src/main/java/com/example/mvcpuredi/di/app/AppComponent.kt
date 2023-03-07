@@ -1,12 +1,11 @@
 package com.example.mvcpuredi.di.app
 
-import android.app.Application
-import com.example.mvcpuredi.networking.UsersApi
+import com.example.mvcpuredi.di.activity.ActivityComponent
+import com.example.mvcpuredi.di.activity.ActivityModule
 import dagger.Component
 
 @AppScope
 @Component(modules = [AppModule::class])
 interface AppComponent {
-    fun application(): Application
-    fun usersApi(): UsersApi
+    fun newActivityComponent(activityModule: ActivityModule): ActivityComponent
 }
