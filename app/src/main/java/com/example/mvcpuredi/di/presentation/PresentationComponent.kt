@@ -1,17 +1,11 @@
 package com.example.mvcpuredi.di.presentation
 
-import com.example.mvcpuredi.screens.common.DialogsNavigator
-import com.example.mvcpuredi.screens.common.ScreensNavigator
-import com.example.mvcpuredi.screens.common.ViewMvcFactory
-import com.example.mvcpuredi.usecases.FetchUserDetailUseCase
-import com.example.mvcpuredi.usecases.FetchUsersUseCase
+import com.example.mvcpuredi.screens.UserDetailActivity
+import com.example.mvcpuredi.screens.UserListFragment
 import dagger.Component
 
 @Component(modules = [PresentationModule::class])
 interface PresentationComponent {
-    fun viewMvcFactory(): ViewMvcFactory
-    fun screensNavigator(): ScreensNavigator
-    fun dialogsNavigator(): DialogsNavigator
-    fun fetchUsersUseCase(): FetchUsersUseCase
-    fun fetchUserDetailUseCase(): FetchUserDetailUseCase
+    fun inject(fragment: UserListFragment)
+    fun inject(activity: UserDetailActivity)
 }

@@ -3,13 +3,13 @@ package com.example.mvcpuredi.screens
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.example.mvcpuredi.Service
 import com.example.mvcpuredi.screens.common.BaseActivity
 import com.example.mvcpuredi.screens.common.DialogsNavigator
 import com.example.mvcpuredi.screens.common.ScreensNavigator
 import com.example.mvcpuredi.screens.common.ViewMvcFactory
 import com.example.mvcpuredi.usecases.FetchUserDetailUseCase
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
 class UserDetailActivity : BaseActivity(), UserDetailViewMvc.Listener {
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -17,17 +17,17 @@ class UserDetailActivity : BaseActivity(), UserDetailViewMvc.Listener {
     private lateinit var userId: String
     private lateinit var viewMvc: UserDetailViewMvc
 
-    @field:Service
-    private lateinit var viewMvcFactory: ViewMvcFactory
+    @Inject
+    lateinit var viewMvcFactory: ViewMvcFactory
 
-    @field:Service
-    private lateinit var fetchUserDetailUseCase: FetchUserDetailUseCase
+    @Inject
+    lateinit var fetchUserDetailUseCase: FetchUserDetailUseCase
 
-    @field:Service
-    private lateinit var dialogsNavigator: DialogsNavigator
+    @Inject
+    lateinit var dialogsNavigator: DialogsNavigator
 
-    @field:Service
-    private lateinit var screensNavigator: ScreensNavigator
+    @Inject
+    lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)

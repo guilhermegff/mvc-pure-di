@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.mvcpuredi.Service
 import com.example.mvcpuredi.User
 import com.example.mvcpuredi.screens.common.BaseFragment
 import com.example.mvcpuredi.screens.common.DialogsNavigator
@@ -12,6 +11,7 @@ import com.example.mvcpuredi.screens.common.ScreensNavigator
 import com.example.mvcpuredi.screens.common.ViewMvcFactory
 import com.example.mvcpuredi.usecases.FetchUsersUseCase
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
 class UserListFragment : BaseFragment(), UserListViewMvc.Listener {
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -19,17 +19,17 @@ class UserListFragment : BaseFragment(), UserListViewMvc.Listener {
     private var isDataLoaded = false
     private lateinit var viewMvc: UserListViewMvc
 
-    @field:Service
-    private lateinit var viewMvcFactory: ViewMvcFactory
+    @Inject
+    lateinit var viewMvcFactory: ViewMvcFactory
 
-    @field:Service
-    private lateinit var fetchUsersUseCase: FetchUsersUseCase
+    @Inject
+    lateinit var fetchUsersUseCase: FetchUsersUseCase
 
-    @field:Service
-    private lateinit var dialogsNavigator: DialogsNavigator
+    @Inject
+    lateinit var dialogsNavigator: DialogsNavigator
 
-    @field:Service
-    private lateinit var screensNavigator: ScreensNavigator
+    @Inject
+    lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)
