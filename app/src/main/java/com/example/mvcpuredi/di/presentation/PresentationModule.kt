@@ -2,7 +2,6 @@ package com.example.mvcpuredi.di.presentation
 
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentManager
-import com.example.mvcpuredi.di.activity.ActivityComponent
 import com.example.mvcpuredi.networking.UsersApi
 import com.example.mvcpuredi.screens.common.DialogsNavigator
 import com.example.mvcpuredi.screens.common.ViewMvcFactory
@@ -12,22 +11,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class PresentationModule(private val activityComponent: ActivityComponent) {
-    @Provides
-    fun layoutInflater() = activityComponent.layoutInflater()
-
-    @Provides
-    fun fragmentManager() = activityComponent.fragmentManager()
-
-    @Provides
-    fun usersApi() = activityComponent.usersApi()
-
-    @Provides
-    fun activity() = activityComponent.activity()
-
-    @Provides
-    fun screenNavigator() = activityComponent.screensNavigator()
-
+class PresentationModule() {
     @Provides
     fun viewMvcFactory(layoutInflater: LayoutInflater) = ViewMvcFactory(layoutInflater)
 
