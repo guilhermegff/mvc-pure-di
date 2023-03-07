@@ -7,6 +7,7 @@ import com.example.mvcpuredi.networking.UsersApi
 import com.example.mvcpuredi.screens.common.ScreensNavigator
 import dagger.Component
 
+@ActivityScope
 @Component(modules = [ActivityModule::class])
 interface ActivityComponent {
     fun activity(): AppCompatActivity
