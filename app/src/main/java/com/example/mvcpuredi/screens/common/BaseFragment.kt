@@ -1,7 +1,6 @@
 package com.example.mvcpuredi.screens.common
 
 import androidx.fragment.app.Fragment
-import com.example.mvcpuredi.di.Injector
 import com.example.mvcpuredi.di.presentation.DaggerPresentationComponent
 import com.example.mvcpuredi.di.presentation.PresentationModule
 
@@ -12,5 +11,5 @@ open class BaseFragment : Fragment() {
             .build()
     }
 
-    protected val injector get() = Injector(presentationComponent)
+    protected val injector get() = presentationComponent
 }

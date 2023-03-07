@@ -2,7 +2,6 @@ package com.example.mvcpuredi.screens.common
 
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mvcpuredi.*
-import com.example.mvcpuredi.di.Injector
 import com.example.mvcpuredi.di.activity.ActivityModule
 import com.example.mvcpuredi.di.activity.DaggerActivityComponent
 import com.example.mvcpuredi.di.presentation.DaggerPresentationComponent
@@ -21,5 +20,5 @@ open class BaseActivity : AppCompatActivity() {
             .presentationModule(PresentationModule(activityComponent)).build()
     }
 
-    protected val injector get() = Injector(presentationComponent)
+    protected val injector get() = presentationComponent
 }
