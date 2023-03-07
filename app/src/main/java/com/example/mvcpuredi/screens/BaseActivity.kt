@@ -1,10 +1,7 @@
 package com.example.mvcpuredi.screens
 
 import androidx.appcompat.app.AppCompatActivity
-import com.example.mvcpuredi.ActivityCompositionRoot
-import com.example.mvcpuredi.Injector
-import com.example.mvcpuredi.MyApplication
-import com.example.mvcpuredi.PresentationCompositionRoot
+import com.example.mvcpuredi.*
 
 open class BaseActivity : AppCompatActivity() {
     val appCompositionRoot get() = (application as MyApplication).appCompositionRoot
@@ -13,9 +10,11 @@ open class BaseActivity : AppCompatActivity() {
         ActivityCompositionRoot(this, appCompositionRoot)
     }
 
-    private val compositionRoot by lazy {
-        PresentationCompositionRoot(activityCompositionRoot)
+    private val presentationComponent by lazy {
+        DaggerPresentationComponent.builder()
+            .presentationModule(PresentationModule(activityCompositionRoot))
+            .build()
     }
 
-    protected val injector get() = Injector(compositionRoot)
+    protected val injector get() = Injector(presentationComponent)
 }
