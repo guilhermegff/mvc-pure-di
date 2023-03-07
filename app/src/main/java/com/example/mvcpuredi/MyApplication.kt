@@ -3,10 +3,11 @@ package com.example.mvcpuredi
 import android.app.Application
 
 class MyApplication : Application() {
-    lateinit var appCompositionRoot: AppCompositionRoot
+    val appComponent by lazy {
+        DaggerAppComponent.builder().appModule(AppModule(this)).build()
+    }
 
     override fun onCreate() {
-        appCompositionRoot = AppCompositionRoot(this)
         super.onCreate()
     }
 }
