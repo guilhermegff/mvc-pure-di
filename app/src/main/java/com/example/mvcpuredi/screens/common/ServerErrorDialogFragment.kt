@@ -3,9 +3,8 @@ package com.example.mvcpuredi.screens.common
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
 
-class ServerErrorDialogFragment : DialogFragment() {
+class ServerErrorDialogFragment : BaseDialog() {
     override fun onCreateDialog(savedInstanceState: Bundle?) : Dialog {
         return AlertDialog.Builder(activity).let {
             it.setTitle("Error")
