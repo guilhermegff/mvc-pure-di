@@ -83,4 +83,9 @@ class UserListFragment : BaseFragment(), UserListViewMvc.Listener {
     override fun onUserClicked(clickedUser: User) {
         screensNavigator.toUserDetail(clickedUser.id.toString())
     }
+
+    override fun onvViewModelClicked() {
+        screensNavigator.toViewModel()
+    }
+
 }
