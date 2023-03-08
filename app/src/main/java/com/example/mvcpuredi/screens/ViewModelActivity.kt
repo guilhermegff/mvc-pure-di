@@ -10,6 +10,7 @@ import com.example.mvcpuredi.R
 import com.example.mvcpuredi.screens.common.BaseActivity
 import com.example.mvcpuredi.screens.common.MyToolbar
 import com.example.mvcpuredi.screens.common.ScreensNavigator
+import com.example.mvcpuredi.screens.common.ViewModelFactory
 import javax.inject.Inject
 
 class ViewModelActivity : BaseActivity() {
@@ -18,9 +19,10 @@ class ViewModelActivity : BaseActivity() {
     lateinit var screensNavigator: ScreensNavigator
 
     @Inject
-    lateinit var myViewModelFqctory: MyViewModel.Factory
+    lateinit var viewModelFactory: ViewModelFactory
 
     private lateinit var myViewModel: MyViewModel
+    private lateinit var myOtherViewModel: MyOtherViewModel
 
     private lateinit var toolbar: MyToolbar
 
@@ -35,7 +37,8 @@ class ViewModelActivity : BaseActivity() {
             screensNavigator.navigateBack()
         }
 
-        myViewModel = ViewModelProvider(this, myViewModelFqctory).get(MyViewModel::class.java)
+        myViewModel = ViewModelProvider(this, viewModelFactory).get(MyViewModel::class.java)
+        myOtherViewModel = ViewModelProvider(this, viewModelFactory).get(MyOtherViewModel::class.java)
 
         myViewModel.users.observe(this, Observer {
             users -> Toast.makeText(this, "Fecthed ${users.size}", Toast.LENGTH_SHORT).show()

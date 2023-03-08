@@ -7,7 +7,7 @@ import com.example.mvcpuredi.usecases.FetchUsersUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MyViewModel @Inject constructor(
+class MyOtherViewModel @Inject constructor(
     private val fetchUsersUseCase: FetchUsersUseCase,
     private val fetchUserDetailUseCase: FetchUserDetailUseCase
 ) : ViewModel() {
