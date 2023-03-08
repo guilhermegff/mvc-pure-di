@@ -22,11 +22,25 @@
     </FrameLayout>
 
     <TextView
+        android:id="@+id/viewModel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:visibility="visible"
+        android:gravity="center"
+        android:text="ViewModel"
+        android:textColor="@color/black"
+        android:textSize="20sp"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
         android:text="MVC App"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="20sp"/>
     </RelativeLayout>

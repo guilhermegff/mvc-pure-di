@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.mvcpuredi.R
 import com.example.mvcpuredi.User
 import com.example.mvcpuredi.screens.common.BaseViewMvc
+import com.example.mvcpuredi.screens.common.MyToolbar
 
 class UserListViewMvc(
     private val layoutInflater: LayoutInflater,
@@ -23,13 +24,21 @@ class UserListViewMvc(
     interface Listener {
         fun onRefreshClicked()
         fun onUserClicked(clickedUser: User)
+        fun onvViewModelClicked()
     }
 
-    private var swipeRefreshLayout: SwipeRefreshLayout = findViewById(R.id.swipeRefresh)
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var usersAdapter: UsersAdapter
+    private val toolbar: MyToolbar = findViewById(R.id.toolbar)
+    private val swipeRefreshLayout: SwipeRefreshLayout = findViewById(R.id.swipeRefresh)
+    private val recyclerView: RecyclerView
+    private val usersAdapter: UsersAdapter
 
     init {
+        toolbar.setViewModelListener {
+            for (listener in listeners) {
+                listener.onvViewModelClicked()
+            }
+        }
+
         swipeRefreshLayout.setOnRefreshListener {
             for (listener in listeners) {
                 listener.onRefreshClicked()
