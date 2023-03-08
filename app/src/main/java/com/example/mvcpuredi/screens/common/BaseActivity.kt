@@ -2,13 +2,14 @@ package com.example.mvcpuredi.screens.common
 
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mvcpuredi.*
-import com.example.mvcpuredi.di.activity.ActivityModule
 
 open class BaseActivity : AppCompatActivity() {
     val appComponent get() = (application as MyApplication).appComponent
 
     val activityComponent by lazy {
-        appComponent.newActivityComponent(ActivityModule(this))
+        appComponent.newActivityComponentBuilder()
+            .activity(this)
+            .build()
     }
 
     private val presentationComponent by lazy {

@@ -3,23 +3,23 @@ package com.example.mvcpuredi.di.activity
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mvcpuredi.screens.common.ScreensNavigator
+import com.example.mvcpuredi.screens.common.ScreensNavigatorImpl
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
 @Module
-class ActivityModule(
-    val activity: AppCompatActivity,
-) {
-    @Provides
-    fun activity() = activity
-
-    @Provides
-    fun layoutInflater(): LayoutInflater = LayoutInflater.from(activity)
-
-    @Provides
+abstract class ActivityModule {
+    @Binds
     @ActivityScope
-    fun screensNavigator() = ScreensNavigator(activity)
+    abstract fun screensNavigator(screensNavigatorImpl: ScreensNavigatorImpl): ScreensNavigator
 
-    @Provides
-    fun fragmentManager() = activity.supportFragmentManager
+    companion object {
+        @Provides
+        fun layoutInflater(activity: AppCompatActivity): LayoutInflater =
+            LayoutInflater.from(activity)
+
+        @Provides
+        fun fragmentManager(activity: AppCompatActivity) = activity.supportFragmentManager
+    }
 }
