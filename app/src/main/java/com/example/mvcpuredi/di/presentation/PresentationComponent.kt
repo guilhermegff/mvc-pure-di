@@ -7,7 +7,7 @@ import dagger.Subcomponent
 
 @PresentationScope
 @Subcomponent(
-    //modules = [PresentationModule::class, UseCasesModule::class]
+    modules = [ViewModelsModule::class]
 )
 interface PresentationComponent {
     fun inject(fragment: UserListFragment)
