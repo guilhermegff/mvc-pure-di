@@ -6,8 +6,9 @@ import com.example.mvcpuredi.networking.toUser
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class FetchUsersUseCase(private val usersApi: UsersApi) {
+class FetchUsersUseCase @Inject constructor(private val usersApi: UsersApi) {
     sealed class Result {
         data class Success(val users: List<User>) : Result()
         object Failure : Result()

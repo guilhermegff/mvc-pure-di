@@ -14,11 +14,11 @@ class ActivityModule(
     fun activity() = activity
 
     @Provides
-    @ActivityScope
-    fun screensNavigator(activity: AppCompatActivity) = ScreensNavigator(activity)
+    fun layoutInflater(): LayoutInflater = LayoutInflater.from(activity)
 
     @Provides
-    fun layoutInflater(): LayoutInflater = LayoutInflater.from(activity)
+    @ActivityScope
+    fun screensNavigator() = ScreensNavigator(activity)
 
     @Provides
     fun fragmentManager() = activity.supportFragmentManager

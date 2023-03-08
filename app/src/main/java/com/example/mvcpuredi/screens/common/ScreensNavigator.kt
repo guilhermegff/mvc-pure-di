@@ -1,9 +1,10 @@
 package com.example.mvcpuredi.screens.common
 
-import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
 import com.example.mvcpuredi.screens.UserDetailActivity
+import javax.inject.Inject
 
-class ScreensNavigator(private val activity: Activity) {
+class ScreensNavigator @Inject constructor(private val activity: AppCompatActivity) {
     fun navigateBack() {
         activity.onBackPressed()
     }

@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.mvcpuredi.screens.UserDetailViewMvc
 import com.example.mvcpuredi.screens.UserListViewMvc
+import javax.inject.Inject
 
-class ViewMvcFactory(private val layoutInflater: LayoutInflater) {
+class ViewMvcFactory @Inject constructor(private val layoutInflater: LayoutInflater) {
     fun newUserListViewMvc(parent: ViewGroup?): UserListViewMvc {
         return UserListViewMvc(layoutInflater, parent)
     }
