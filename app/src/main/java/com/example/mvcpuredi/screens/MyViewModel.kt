@@ -2,13 +2,15 @@ package com.example.mvcpuredi.screens
 
 import androidx.lifecycle.*
 import com.example.mvcpuredi.User
+import com.example.mvcpuredi.usecases.FetchUserDetailUseCase
 import com.example.mvcpuredi.usecases.FetchUsersUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
 class MyViewModel @Inject constructor(
-    private val fetchUsersUseCase: FetchUsersUseCase
+    private val fetchUsersUseCase: FetchUsersUseCase,
+    private val fetchUserDetailUseCase: FetchUserDetailUseCase
 ) : ViewModel() {
     private val _users = MutableLiveData<List<User>>()
     val users: LiveData<List<User>> = _users
@@ -25,10 +27,10 @@ class MyViewModel @Inject constructor(
     }
 
     class Factory @Inject constructor(
-        private val fetchUsersUseCase: Provider<FetchUsersUseCase>,
+        private val myViewModelProvider: Provider<MyViewModel>,
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return MyViewModel(fetchUsersUseCase.get()) as T
+            return myViewModelProvider.get() as T
         }
     }
 }
