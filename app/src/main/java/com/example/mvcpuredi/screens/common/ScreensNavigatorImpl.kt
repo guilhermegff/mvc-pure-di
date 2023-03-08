@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.mvcpuredi.screens.UserDetailActivity
 import javax.inject.Inject
 
-class ScreensNavigator @Inject constructor(private val activity: AppCompatActivity) {
-    fun navigateBack() {
+class ScreensNavigatorImpl @Inject constructor(
+    private val activity: AppCompatActivity
+) : ScreensNavigator {
+    override fun navigateBack() {
         activity.onBackPressed()
     }
 
-    fun toUserDetail(userId: String) {
+    override fun toUserDetail(userId: String) {
         UserDetailActivity.start(activity, userId)
     }
 }

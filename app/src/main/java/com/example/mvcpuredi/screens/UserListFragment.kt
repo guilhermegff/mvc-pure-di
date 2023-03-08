@@ -5,10 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.mvcpuredi.User
-import com.example.mvcpuredi.screens.common.BaseFragment
-import com.example.mvcpuredi.screens.common.DialogsNavigator
-import com.example.mvcpuredi.screens.common.ScreensNavigator
-import com.example.mvcpuredi.screens.common.ViewMvcFactory
+import com.example.mvcpuredi.screens.common.*
 import com.example.mvcpuredi.usecases.FetchUsersUseCase
 import kotlinx.coroutines.*
 import javax.inject.Inject
