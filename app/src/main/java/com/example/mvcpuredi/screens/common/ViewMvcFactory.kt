@@ -5,13 +5,16 @@ import android.view.ViewGroup
 import com.example.mvcpuredi.screens.UserDetailViewMvc
 import com.example.mvcpuredi.screens.UserListViewMvc
 import javax.inject.Inject
+import javax.inject.Provider
 
-class ViewMvcFactory @Inject constructor(private val layoutInflater: LayoutInflater) {
+class ViewMvcFactory @Inject constructor(
+    private val layoutInflaterProvider: Provider<LayoutInflater>,
+) {
     fun newUserListViewMvc(parent: ViewGroup?): UserListViewMvc {
-        return UserListViewMvc(layoutInflater, parent)
+        return UserListViewMvc(layoutInflaterProvider.get(), parent)
     }
 
     fun newUserDetailViewMvc(parent: ViewGroup?): UserDetailViewMvc {
-        return UserDetailViewMvc(layoutInflater, parent)
+        return UserDetailViewMvc(layoutInflaterProvider.get(), parent)
     }
 }
